@@ -1,3 +1,43 @@
+<?php
+// Start the session to remember the user
+session_start();
+require_once 'includes/db.php';
+
+$error_msg = "";
+
+// Check if the login form was submitted
+if (isset($_POST['login'])) {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    // 1. Find the user by their email
+    $stmt = $conn->prepare("SELECT id, name, password FROM users WHERE email = ?");
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    // 2. Check if the user exists
+    if ($result->num_rows === 1) {
+        $user = $result->fetch_assoc();
+
+        // 3. Verify the encrypted password
+        if (password_verify($password, $user['password'])) {
+            // Success! Create session variables (the VIP pass)
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['name'] = $user['name'];
+            
+            // Redirect to the profile page
+            header("Location: profile.php");
+            exit();
+        } else {
+            $error_msg = "Incorrect password.";
+        }
+    } else {
+        $error_msg = "No account found with that email.";
+    }
+    $stmt->close();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +52,9 @@
 <div class="container d-flex justify-content-center align-items-center vh-100">
     <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
         <h3 class="text-center mb-4">Log In</h3>
-        
+        <?php if (!empty($error_msg)): ?>
+            <div class="alert alert-danger"><?php echo $error_msg; ?></div>
+        <?php endif; ?>
         <!-- Form submits via POST to the same page -->
         <form action="login.php" method="POST">
             <div class="mb-3">
