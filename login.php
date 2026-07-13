@@ -21,11 +21,20 @@ if (isset($_POST['login'])) {
         $user = $result->fetch_assoc();
 
         // 3. Verify the encrypted password
+        // 3. Verify the encrypted password
         if (password_verify($password, $user['password'])) {
             // Success! Create session variables
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['name'] = $user['name'];
             
+            // --- NEW: Record the login activity ---
+            $ip_address = $_SERVER['REMOTE_ADDR'];
+            $log_stmt = $conn->prepare("INSERT INTO login_logs (user_id, ip_address) VALUES (?, ?)");
+            $log_stmt->bind_param("is", $user['id'], $ip_address);
+            $log_stmt->execute();
+            $log_stmt->close();
+            // --------------------------------------
+
             // Redirect to the profile page
             header("Location: profile.php");
             exit();
@@ -70,11 +79,20 @@ if (isset($_POST['login'])) {
                     <input type="password" class="form-control" id="password" name="password" required>
                 </div>
             </div>
-            
             <button type="submit" name="login" class="btn btn-primary w-100">Log In</button>
+            <div class="d-flex align-items-center my-3">
+                <hr class="flex-grow-1">
+                <span class="mx-2 text-muted">OR</span>
+                <hr class="flex-grow-1">
+            </div>
+
+            <a href="google-login.php" class="btn btn-outline-dark w-100">
+                <i class="bi bi-google text-danger me-2"></i>Sign in with Google
+            </a>
         </form>
         
         <div class="text-center mt-3">
+            <p class="mb-2"><a href="forgot-password.php" class="text-decoration-none text-muted"><small>Forgot your password?</small></a></p>
             <p class="mb-0">Don't have an account? <a href="register.php" class="text-decoration-none">Register here</a></p>
         </div>
     </div>
