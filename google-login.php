@@ -1,13 +1,14 @@
 <?php
 session_start();
 require_once 'vendor/autoload.php';
+require_once 'config.php'; // Add this line!
 
 // 1. Initialize the Google Client
 $client = new Google\Client();
 
 // ⚠️ PASTE YOUR KEYS HERE ⚠️
-$client->setClientId('358581470371-6sahbg7febsu5i00ac13elkb7kerrvsm.apps.googleusercontent.com');
-$client->setClientSecret('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');
+$client->setClientId(GOOGLE_CLIENT_ID);
+$client->setClientSecret(GOOGLE_CLIENT_SECRET);
 $client->setRedirectUri('http://localhost/auth-system/google-callback.php');
 
 // 2. Request access to their email and basic profile info

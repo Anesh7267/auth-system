@@ -2,12 +2,13 @@
 session_start();
 require_once 'includes/db.php';
 require_once 'vendor/autoload.php';
+require_once 'config.php'; // Add this line!
 
 $client = new Google\Client();
 
 // ⚠️ PASTE YOUR EXACT SAME KEYS HERE ⚠️
-$client->setClientId('358581470371-6sahbg7febsu5i00ac13elkb7kerrvsm.apps.googleusercontent.com');
-$client->setClientSecret('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');
+$client->setClientId(GOOGLE_CLIENT_ID);
+$client->setClientSecret(GOOGLE_CLIENT_SECRET);
 $client->setRedirectUri('http://localhost/auth-system/google-callback.php');
 
 // 1. Check if Google sent back an authorization code
