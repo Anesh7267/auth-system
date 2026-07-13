@@ -52,7 +52,8 @@ if (isset($_POST['change_password'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Change Password | Auth System</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/zephyr/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 </head>
 <body class="bg-light">
 
@@ -61,7 +62,7 @@ if (isset($_POST['change_password'])) {
     <div class="container">
         <a class="navbar-brand" href="profile.php">Auth System</a>
         <div class="d-flex">
-            <a href="profile.php" class="btn btn-outline-light btn-sm me-2">Back to Profile</a>
+            <a href="profile.php" class="btn btn-light btn-sm me-2">Back to Profile</a>
             <a href="logout.php" class="btn btn-danger btn-sm">Log Out</a>
         </div>
     </div>
@@ -112,5 +113,6 @@ if (isset($_POST['change_password'])) {
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </body>
 </html>
