@@ -40,7 +40,7 @@ The interface is built around the MANIMĀRAN STUDIOS 8 brand guidelines and the 
  ┣ 📜 profile.php
  ┣ 📜 register.php
  ┗ 📜 user-logs.php
-
+```
 
 ## 🛠️ Technology Stack
 | Component | Technology Used |
