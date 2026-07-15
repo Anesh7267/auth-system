@@ -50,81 +50,124 @@ $all_users = $users_stmt->get_result();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | Auth System</title>
+    <title>Admin Dashboard | MANIMĀRAN STUDIOS 8</title>
     <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/zephyr/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="icon" type="image/png" href="assets/Manimaran-Studios-logo.png">
+    <link rel="stylesheet" href="css/theme.css">
 </head>
-<body class="bg-light">
+<body class="theme-shell">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-    <div class="container">
-        <a class="navbar-brand" href="admin.php"><i class="bi bi-shield-shaded me-2"></i>Admin Panel</a>
-        <div class="d-flex">
-            <a href="profile.php" class="btn btn-light btn-sm me-2">My Profile</a>
-            <a href="logout.php" class="btn btn-danger btn-sm">Log Out</a>
-        </div>
-    </div>
-</nav>
-
-<div class="container">
-    <div class="row">
-        <div class="col-12">
-            <div class="card shadow">
-                <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0"><i class="bi bi-people-fill me-2"></i>User Management</h5>
-                    <span class="badge bg-primary rounded-pill">Total Users: <?php echo $all_users->num_rows; ?></span>
+<div class="admin-shell container-fluid px-0">
+    <div class="row g-0 min-vh-100">
+        <aside class="col-lg-3 col-xl-2 admin-sidebar p-4 p-lg-4 d-flex flex-column">
+            <a class="admin-sidebar-brand mb-4" href="admin.php">
+                <img src="assets/Manimaran-Studios-logo.png" alt="MANIMĀRAN STUDIOS 8 logo" class="brand-logo brand-logo-nav">
+                <div>
+                    <div class="auth-kicker mb-1">Thriall</div>
+                    <div class="fw-semibold">MANIMĀRAN STUDIOS 8</div>
                 </div>
-                <div class="card-body p-0">
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle mb-0">
-                            <thead class="table-light">
-                                <tr>
-                                    <th class="ps-4">ID</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Joined</th>
-                                    <th class="text-end pe-4">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php while ($row = $all_users->fetch_assoc()): ?>
-                                    <tr>
-                                        <td class="ps-4 fw-bold text-muted">#<?php echo $row['id']; ?></td>
-                                        <td><?php echo htmlspecialchars($row['name']); ?></td>
-                                        <td><?php echo htmlspecialchars($row['email']); ?></td>
-                                        <td>
-                                            <?php if ($row['role'] === 'admin'): ?>
-                                                <span class="badge bg-danger">Admin</span>
-                                            <?php else: ?>
-                                                <span class="badge bg-secondary">User</span>
-                                            <?php endif; ?>
-                                        </td>
-                                        <td><?php echo date('M j, Y', strtotime($row['created_at'])); ?></td>
-                                        <td class="text-end pe-4">
-                                            <a href="user-logs.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-outline-info me-1">
-                                                <i class="bi bi-clock-history"></i> Logs
-                                            </a>
+            </a>
 
-                                            <?php if ($row['id'] != $user_id): ?>
-                                                <form action="admin.php" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this user? This action cannot be undone.');">
-                                                    <input type="hidden" name="target_id" value="<?php echo $row['id']; ?>">
-                                                    <button type="submit" name="delete_user" class="btn btn-sm btn-outline-danger">
-                                                        <i class="bi bi-trash-fill"></i> Delete
-                                                    </button>
-                                                </form>
-                                            <?php else: ?>
-                                                <button class="btn btn-sm btn-outline-secondary disabled">Current</button>
-                                            <?php endif; ?> 
-                                        </td>
-                                    </tr>
-                                <?php endwhile; ?>
-                            </tbody>
-                        </table>
+            <div class="admin-sidebar-card mb-4">
+                <div class="small text-uppercase fw-semibold mb-2" style="letter-spacing: 0.08em;">Admin Panel</div>
+                <div class="admin-sidebar-copy small">Monitor users, inspect logs, and manage access from the branded dashboard.</div>
+            </div>
+
+            <nav class="d-grid gap-2">
+                <a class="admin-nav-link active" href="admin.php"><i class="bi bi-speedometer2"></i><span>Dashboard</span></a>
+                <a class="admin-nav-link" href="profile.php"><i class="bi bi-person-circle"></i><span>My Profile</span></a>
+                <a class="admin-nav-link" href="user-logs.php?id=<?php echo $user_id; ?>"><i class="bi bi-clock-history"></i><span>My Logs</span></a>
+                <a class="admin-nav-link" href="logout.php"><i class="bi bi-box-arrow-right"></i><span>Log Out</span></a>
+            </nav>
+
+            <div class="mt-auto pt-4 small text-muted">
+                Logged in as admin<br>
+                <?php echo htmlspecialchars($_SESSION['name'] ?? 'Administrator'); ?>
+            </div>
+        </aside>
+
+        <main class="col-lg-9 col-xl-10 admin-main p-3 p-lg-4">
+            <div class="admin-topbar mb-4">
+                <div>
+                    <h1 class="hero-title mb-2 text-dark">User management dashboard</h1>
+                    <p class="hero-copy text-muted mb-0">View every user, review activity, and manage access.</p>
+                </div>
+                <div class="d-flex flex-wrap gap-2">
+                    <a href="profile.php" class="btn btn-light btn-sm"><i class="bi bi-person-circle me-2"></i>My Profile</a>
+                    <a href="logout.php" class="btn btn-danger btn-sm"><i class="bi bi-box-arrow-right me-2"></i>Log Out</a>
+                </div>
+            </div>
+
+            <div class="dashboard-hero p-4 p-md-5 mb-4">
+                <div class="position-relative" style="z-index: 1;">
+                    <div class="hero-kicker mb-2">USER BASE</div>
+                    <h2 class="hero-title mb-3">Total users in the system</h2>
+                    <p class="hero-copy mb-4">A quick look at the current user base.</p>
+                    <span class="metric-badge"><i class="bi bi-people-fill"></i><?php echo $all_users->num_rows; ?> total users</span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card surface-card">
+                        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                            <h5 class="mb-0"><i class="bi bi-people-fill me-2"></i>User Management</h5>
+                            <span class="badge bg-primary rounded-pill">Total Users: <?php echo $all_users->num_rows; ?></span>
+                        </div>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th class="ps-4">ID</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                            <th>Joined</th>
+                                            <th class="text-end pe-4">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php while ($row = $all_users->fetch_assoc()): ?>
+                                            <tr>
+                                                <td class="ps-4 fw-bold text-muted">#<?php echo $row['id']; ?></td>
+                                                <td><?php echo htmlspecialchars($row['name']); ?></td>
+                                                <td><?php echo htmlspecialchars($row['email']); ?></td>
+                                                <td>
+                                                    <?php if ($row['role'] === 'admin'): ?>
+                                                        <span class="badge bg-danger">Admin</span>
+                                                    <?php else: ?>
+                                                        <span class="badge bg-secondary">User</span>
+                                                    <?php endif; ?>
+                                                </td>
+                                                <td><?php echo date('M j, Y', strtotime($row['created_at'])); ?></td>
+                                                <td class="text-end pe-4">
+                                                    <a href="user-logs.php?id=<?php echo $row['id']; ?>" class="btn btn-sm btn-outline-info me-1">
+                                                        <i class="bi bi-clock-history"></i> Logs
+                                                    </a>
+
+                                                    <?php if ($row['id'] != $user_id): ?>
+                                                        <form action="admin.php" method="POST" class="d-inline" onsubmit="return confirm('Are you sure you want to delete this user? This action cannot be undone.');">
+                                                            <input type="hidden" name="target_id" value="<?php echo $row['id']; ?>">
+                                                            <button type="submit" name="delete_user" class="btn btn-sm btn-outline-danger">
+                                                                <i class="bi bi-trash-fill"></i> Delete
+                                                            </button>
+                                                        </form>
+                                                    <?php else: ?>
+                                                        <button class="btn btn-sm btn-outline-secondary disabled">Current</button>
+                                                    <?php endif; ?> 
+                                                </td>
+                                            </tr>
+                                        <?php endwhile; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     </div>
 </div>
 

@@ -49,15 +49,19 @@ $logs_result = $log_stmt->get_result();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Logs | Auth System</title>
+    <title>User Logs | MANIMĀRAN STUDIOS 8</title>
     <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/zephyr/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/theme.css">
 </head>
-<body class="bg-light">
+<body class="theme-shell">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+<nav class="navbar navbar-expand-lg navbar-dark mb-4">
     <div class="container">
-        <a class="navbar-brand" href="admin.php"><i class="bi bi-shield-shaded me-2"></i>Admin Panel</a>
+        <a class="navbar-brand fw-semibold d-flex align-items-center gap-2" href="admin.php">
+            <img src="assets/Manimaran-Studios-logo.png" alt="MANIMĀRAN STUDIOS 8 logo" class="brand-logo brand-logo-nav">
+            <span>MANIMĀRAN STUDIOS 8</span>
+        </a>
         <div class="d-flex">
             <a href="admin.php" class="btn btn-light btn-sm me-2">Back to Dashboard</a>
             <a href="logout.php" class="btn btn-danger btn-sm">Log Out</a>
@@ -66,9 +70,17 @@ $logs_result = $log_stmt->get_result();
 </nav>
 
 <div class="container">
+    <div class="dashboard-hero p-4 p-md-5 mb-4">
+        <div class="position-relative" style="z-index: 1;">
+            <div class="hero-kicker mb-2">Audit trail</div>
+            <h1 class="hero-title mb-3">Activity logs for <?php echo htmlspecialchars($target_user['name']); ?></h1>
+            <p class="hero-copy mb-0">Review recent sign-ins, IP addresses, and account activity for compliance and security checks.</p>
+        </div>
+    </div>
+
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card shadow">
+            <div class="card surface-card">
                 <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
                     <h5 class="mb-0"><i class="bi bi-journal-text me-2"></i>Activity Logs</h5>
                     <span class="badge bg-light text-dark">User ID: #<?php echo htmlspecialchars($target_user_id); ?></span>

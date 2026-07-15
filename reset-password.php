@@ -55,14 +55,24 @@ if (isset($_POST['reset_password']) && $valid_token) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password | Auth System</title>
+    <title>Reset Password | MANIMĀRAN STUDIOS 8</title>
     <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/zephyr/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/theme.css">
 </head>
-<body class="bg-light">
+<body class="theme-shell">
 
-<div class="container d-flex justify-content-center align-items-center vh-100">
-    <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
+<div class="auth-page d-flex flex-column">
+    <div class="container flex-grow-1 d-flex align-items-center justify-content-center">
+        <div class="auth-brand-block w-100 d-flex flex-column align-items-center">
+            <div class="text-center mb-4 mb-md-5">
+                <img src="assets/Manimaran-Studios-logo.png" alt="MANIMĀRAN STUDIOS 8 logo" class="brand-logo brand-logo-auth mb-3">
+                <div class="auth-kicker mb-2">Thriall</div>
+                <h1 class="auth-title mb-3">MANIMĀRAN STUDIOS 8</h1>
+                <p class="auth-subtitle mx-auto mb-0">Set a new password to regain access to your account.</p>
+            </div>
+
+            <div class="card auth-card p-4 p-md-5">
         <h3 class="text-center mb-4">Set New Password</h3>
         
         <?php if (!$valid_token && empty($success_msg)): ?>
@@ -93,6 +103,8 @@ if (isset($_POST['reset_password']) && $valid_token) {
             </form>
         <?php endif; ?>
 
+            </div>
+        </div>
     </div>
 </div>
 

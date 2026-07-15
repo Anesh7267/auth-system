@@ -51,16 +51,20 @@ if (isset($_POST['change_password'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Change Password | Auth System</title>
+    <title>Change Password | MANIMĀRAN STUDIOS 8</title>
     <link href="https://cdn.jsdelivr.net/npm/bootswatch@5.3.0/dist/zephyr/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/theme.css">
 </head>
-<body class="bg-light">
+<body class="theme-shell">
 
 <!-- Navigation Bar -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+<nav class="navbar navbar-expand-lg navbar-dark mb-4">
     <div class="container">
-        <a class="navbar-brand" href="profile.php">Auth System</a>
+        <a class="navbar-brand fw-semibold d-flex align-items-center gap-2" href="profile.php">
+            <img src="assets/Manimaran-Studios-logo.png" alt="MANIMĀRAN STUDIOS 8 logo" class="brand-logo brand-logo-nav">
+            <span>MANIMĀRAN STUDIOS 8</span>
+        </a>
         <div class="d-flex">
             <a href="profile.php" class="btn btn-light btn-sm me-2">Back to Profile</a>
             <a href="logout.php" class="btn btn-danger btn-sm">Log Out</a>
@@ -69,9 +73,17 @@ if (isset($_POST['change_password'])) {
 </nav>
 
 <div class="container">
+    <div class="dashboard-hero p-4 p-md-5 mb-4">
+        <div class="position-relative" style="z-index: 1;">
+            <div class="hero-kicker mb-2">Security settings</div>
+            <h1 class="hero-title mb-3">Change your password</h1>
+            <p class="hero-copy mb-0">Use a strong password that you do not use elsewhere. Updating it regularly helps keep your account secure.</p>
+        </div>
+    </div>
+
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <div class="card shadow">
+            <div class="card surface-card">
                 <div class="card-header bg-secondary text-white">
                     <h5 class="mb-0">Change Password</h5>
                 </div>
